@@ -2,7 +2,7 @@
 #include<stdlib.h> 
 #include<time.h> 
  
-#define ARG_LEN 2
+#define ARG_LEN 4
 
 typedef struct objects1 {
     int name;
@@ -36,11 +36,16 @@ void generator(int input[]){
     // for(i=0; i< ARG_LEN; i++){ 
     //     printf("Generator input: %d\n",input[i]); 
     // }
-    if(input[) 
-    int capacity = randomizer(input[0],input[1]); 
-    printf("Randomized knapsack cpacity: %d\n",knapSack);
-    int objNum = randomizer(input[2],input[3]);
-    printf("Randomized number of objects: %d\n",objNum);
+    int capacity;
+    int objNum;
+    if(input[0]<input[1]){
+        capacity = randomizer(input[0],input[1]);
+        printf("Randomized knapsack cpacity: %d\n",capacity);
+    } else{ printf("Max is bigger than min! -- Knapsack capacity");}
+    if(input[2]<input[3]){
+        objNum = randomizer(input[2],input[3]);
+        printf("Randomized number of objects: %d\n",objNum);
+    } else{ printf("Max is bigger than min! -- Amount of objects");}
 
 } 
  
