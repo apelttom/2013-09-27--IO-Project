@@ -2,7 +2,19 @@
 #include<stdlib.h> 
 #include<time.h> 
  
-#define ARG_LEN 2 
+#define ARG_LEN 2
+
+typedef struct objects1 {
+    int name;
+    int cost;
+    int value;
+    int copies;
+} array1[50];
+
+struct example {
+    int knapSackCap;
+    array1 objets;
+};
  
 int randomizer(int min, int max){ 
     int x;  
@@ -19,15 +31,17 @@ int randomizer(int min, int max){
  * Maximal cost of each object, Minimal value of each object, Maximal value of each object
  * Minimal copies of each object, Maximal copies of each object and Number of examples.
  */
-void generator(int spec[]){ 
+void generator(int input[]){ 
     int i; 
-    for(i=0; i< ARG_LEN; i++){ 
-        printf("Generator spec: %d\n",spec[i]); 
-    }
-    if(spec[) 
-    int knapSack = randomizer(spec[0],spec[1]); 
-    printf("Randomized knapsnack cpacity: %d\n",knapSack);
-     
+    // for(i=0; i< ARG_LEN; i++){ 
+    //     printf("Generator input: %d\n",input[i]); 
+    // }
+    if(input[) 
+    int capacity = randomizer(input[0],input[1]); 
+    printf("Randomized knapsack cpacity: %d\n",knapSack);
+    int objNum = randomizer(input[2],input[3]);
+    printf("Randomized number of objects: %d\n",objNum);
+
 } 
  
  
