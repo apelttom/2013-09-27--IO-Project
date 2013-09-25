@@ -2,19 +2,19 @@
 #include<stdlib.h> 
 #include<time.h> 
  
-#define ARG_LEN 4
+#define ARG_LEN 10
 
-typedef struct objArray {
+typedef struct struct1 {
     int name;
     int cost;
     int value;
     int copies;
-} arr[50];
+} arr1[50];
 
-struct probExmpl {
+typedef struct struct2 {
     int knapSackCap;
-    arr objects;
-};
+    arr1 objects;
+} example;
  
 int randomizer(int min, int max){ 
     int x;  
@@ -31,44 +31,44 @@ int randomizer(int min, int max){
  * Maximal cost of each object, Minimal value of each object, Maximal value of each object
  * Minimal copies of each object, Maximal copies of each object and Number of examples.
  */
-void generator(int input[]){ 
+example generator(int input[]){ 
     int i; 
-    // for(i=0; i< ARG_LEN; i++){ 
-    //     printf("Generator input: %d\n",input[i]); 
+    // for(i=0; i <= ARG_LEN-1; i++){ 
+    //     printf("Generator input: %d\n",input[i]);
     // }
-    struct probExmpl example;
-    example.knapSackCap = 0;
+    
+    example generated;
+
     int objNum;
     
     if(input[0]<input[1]){
-        example.knapSackCap = randomizer(input[0],input[1]);
-        printf("Randomized knapsack cpacity: %d\n",example.knapSackCap);
+        generated.knapSackCap = randomizer(input[0],input[1]);
+        printf("Randomized knapsack cpacity: %d\n",generated.knapSackCap);
     } else{ printf("Max is bigger than min! -- Knapsack capacity");}
     if(input[2]<input[3]){
         objNum = randomizer(input[2],input[3]);
         printf("Randomized number of objects: %d\n",objNum);
     } else{ printf("Max is bigger than min! -- Amount of objects");}
-    
-    struct objArray genObjts[objNum];
     for (i = 0; i < objNum; ++i){
-        genObjts[i].name = i;
-        genObjts[i].cost = randomizer(input[4],input[5]);
-        genObjts[i].value = randomizer(input[6],input[7]);
-        genObjts[i].copies = randomizer(input[8],input[9]);
+        generated.objects[i].name = i;
+        generated.objects[i].cost = randomizer(input[4],input[5]);
+        generated.objects[i].value = randomizer(input[6],input[7]);
+        generated.objects[i].copies = randomizer(input[8],input[9]);
     }
     for (i = 0; i < objNum; ++i){
-        printf("%d. object name = x%d\n", i, genObjts[i].name);
-        printf("%d. object cost = x%d\n", i, genObjts[i].cost);
-        printf("%d. object value = x%d\n", i, genObjts[i].value);
-        printf("%d. object copies = x%d\n", i, genObjts[i].copies);
+        printf("%d. object name = x%d\n", i, generated.objects[i].name);
+        printf("%d. object cost =%d\n", i, generated.objects[i].cost);
+        printf("%d. object value =%d\n", i, generated.objects[i].value);
+        printf("%d. object copies =%d\n", i, generated.objects[i].copies);
     }
+    return generated;
 } 
  
  
  int main(int argc, char *argv[]){ 
     int restr[ARG_LEN]; 
     int i; 
-    for(i=0; i<ARG_LEN; i++){
+    for(i=0; i <= ARG_LEN-1; i++){
         restr[i] = atoi(argv[i+1]); 
         printf("Arguments: %d\n",restr[i]); 
     } 
