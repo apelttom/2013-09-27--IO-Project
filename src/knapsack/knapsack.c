@@ -4,16 +4,16 @@
  
 #define ARG_LEN 4
 
-typedef struct objects1 {
+typedef struct objArray {
     int name;
     int cost;
     int value;
     int copies;
-} array1[50];
+} arr[50];
 
-struct example {
+struct probExmpl {
     int knapSackCap;
-    array1 objets;
+    arr objects;
 };
  
 int randomizer(int min, int max){ 
@@ -36,17 +36,32 @@ void generator(int input[]){
     // for(i=0; i< ARG_LEN; i++){ 
     //     printf("Generator input: %d\n",input[i]); 
     // }
-    int capacity;
+    struct probExmpl example;
+    example.knapSackCap = 0;
     int objNum;
+    
     if(input[0]<input[1]){
-        capacity = randomizer(input[0],input[1]);
-        printf("Randomized knapsack cpacity: %d\n",capacity);
+        example.knapSackCap = randomizer(input[0],input[1]);
+        printf("Randomized knapsack cpacity: %d\n",example.knapSackCap);
     } else{ printf("Max is bigger than min! -- Knapsack capacity");}
     if(input[2]<input[3]){
         objNum = randomizer(input[2],input[3]);
         printf("Randomized number of objects: %d\n",objNum);
     } else{ printf("Max is bigger than min! -- Amount of objects");}
-
+    
+    struct objArray genObjts[objNum];
+    for (i = 0; i < objNum; ++i){
+        genObjts[i].name = i;
+        genObjts[i].cost = randomizer(input[4],input[5]);
+        genObjts[i].value = randomizer(input[6],input[7]);
+        genObjts[i].copies = randomizer(input[8],input[9]);
+    }
+    for (i = 0; i < objNum; ++i){
+        printf("%d. object name = x%d\n", i, genObjts[i].name);
+        printf("%d. object cost = x%d\n", i, genObjts[i].cost);
+        printf("%d. object value = x%d\n", i, genObjts[i].value);
+        printf("%d. object copies = x%d\n", i, genObjts[i].copies);
+    }
 } 
  
  
