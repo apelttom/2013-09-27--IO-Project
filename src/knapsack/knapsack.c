@@ -96,8 +96,8 @@ knapsack generator(int input[]){
     return generated;
 }
 
-optimalAlgorithm(knapsack *sack, table t[50][50]){
-    int i, j, k, m, n;
+void optimalAlgorithm(knapsack *sack, table t[50][50]){
+    int i, j, k;
     // table t[(sack -> capacity)+1][sack -> objectsNum];
     // printf("Table rows: %d\n",sack -> capacity);
     // printf("Table columns: %d\n",sack -> objectsNum);
@@ -160,6 +160,7 @@ optimalAlgorithm(knapsack *sack, table t[50][50]){
             }
         }
         // FOR DEBUGGING-------------
+        // int m, n;
         // for(m = 0 ; m <= sack -> capacity; ++m){
         //     printf("%d.row\t", m);
         //     for(n = 0 ; n < sack -> objectsNum; ++n){
