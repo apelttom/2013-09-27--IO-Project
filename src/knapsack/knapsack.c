@@ -85,12 +85,12 @@ knapsack generator(int input[]){
     }
 
     // FOR DEBUGGING-----------
-    for (i = 0; i < generated.objectsNum; ++i){
+    // for (i = 0; i < generated.objectsNum; ++i){
         // printf("%d. object name: x%d\n", i, generated.objects[i].name);
         // printf("%d. object cost: %d\n", i, generated.objects[i].cost);
         // printf("%d. object value: %d\n", i, generated.objects[i].value);
         // printf("%d. object copies: %d\n", i, generated.objects[i].copies);
-    }
+    // }
     // ------------------------
 
     return generated;
@@ -98,7 +98,6 @@ knapsack generator(int input[]){
 
 void optimalAlgorithm(knapsack *sack, table t[50][50]){
     int i, j, k;
-    // table t[(sack -> capacity)+1][sack -> objectsNum];
     // printf("Table rows: %d\n",sack -> capacity);
     // printf("Table columns: %d\n",sack -> objectsNum);
     for(i = 0 ; i <= sack -> capacity; ++i){
