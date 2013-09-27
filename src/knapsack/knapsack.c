@@ -73,8 +73,8 @@ knapsack generator(int input[]){
     for (i = 0; i < generated.objectsNum; ++i){
         generated.objects[i].name = i;
         generated.objects[i].cost = randomizer(input[4],input[5], i);
-        generated.objects[i].value = randomizer(input[6],input[7], i);
-        generated.objects[i].copies = randomizer(input[8],input[9], i);
+        generated.objects[i].value = randomizer(input[6],input[7], i/2);
+        generated.objects[i].copies = randomizer(input[8],input[9], i*3);
     }
     for (i = 0; i < generated.objectsNum; ++i){
         printf("%d. object name: x%d\n", i, generated.objects[i].name);
@@ -107,44 +107,40 @@ void optimalAlgorithm(knapsack *sack){
     //  That is why i and j are inverted
     //  WORKING RIGHT BUT DOESN REMEMBER HOW MANY COPIES WE HAVE USED SO FAR
     for (j = 0; j < sack -> objectsNum; ++j){
-        int inKnapsack = 0;
+        // int usedCopies = 0;
+        int previousMax = 0;
+        // How many items from which we will be choosing max?
+        int Q = sack -> objects[j].copies;
         for (i = 0; i <= sack -> capacity; ++i){
-            // How many items from which we will be choosing max?
-            int Q = sack -> objects[j].copies;
-            // Here we are going to count values from which the we will choose max.
+            // Used for storing values from which we will pick max
             int values[Q];
-            // We cannot access negative column
-            int previousCol = (j-1) >= 0 ? (j-1) : 0;
-            int optimizedCol = table[i][previousCol];
+            int optimizedCol = (j-1) >= 0 ? (table[i][j-1]) : 0;
             for (k = 1; k <= Q; ++k){
+                values[k-1] = 0;
                 int cost = (k*(sack -> objects[j].cost));
-                // printf("Row minus cost: %d\t", i-cost);    
                 if(i-cost >= 0){
-                    values[k-1] = (k*(sack -> objects[j].value))+table[i-cost][previousCol];
-                    printf("In %d row %d copies of x%d costs %d, values %d and with previous values %d dollars\n", i, k, sack -> objects[j].name, cost, k*(sack -> objects[j].value), values[k-1]);
-                } else{values[k-1] = 0;}
+                    int optimizedAfterCost = (j-1) >= 0 ? (table[i-cost][j-1]) : 0;
+                    values[k-1] = (k*(sack -> objects[j].value))+optimizedAfterCost;
+                    // printf("In %d row %d copies of object x%d costs %d, gives us value: %d and with previous optimized column earn us %d dollars\n", i, k, sack -> objects[j].name, cost, k*(sack -> objects[j].value), values[k-1]);
+                }
             }
-            // if(i== sack ->capacity){
-                printf("Value from optimized column\tValues counted using x%d:\n", sack -> objects[j].name);
-                printf("%d\t\t\t\t", optimizedCol);
-                print_array(values, Q);
-                printf("\n");
-            // }
+            // FOR DEBUGGING-------------------
+            // printf("Value from optimized column\tValues counted using x%d:\n", sack -> objects[j].name);
+            // printf("%d\t\t\t\t", optimizedCol);
+            // print_array(values, Q);
+            // printf("\n");
+            // ---------------------------------
             int max = max_array(values, Q);
-            if(max > optimizedCol){
+            if(max > optimizedCol && max > previousMax){
                 table[i][j] = max;
-                inKnapsack += max / (sack -> objects[j].value);
-                printf("Maximum: %d\n", max);
-                printf("Optimized column: %d\n", optimizedCol);
-                printf("We have to use %d copies of x%d\n", inKnapsack, sack -> objects[j].name);
-                printf("We have already put %d of x%d in knapsack\n", inKnapsack, sack -> objects[j].name);
-                printf("\n");
-            }else{
-                table[i][j] = optimizedCol;
-                printf("Maximum: %d\n", max);
-                printf("Optimized column: %d\n", optimizedCol);
-                printf("We have already put %d of x%d in knapsack\n", inKnapsack, sack -> objects[j].name);
-                printf("\n");
+                // FOR DEBUGGING----------------
+                // printf("Previous max: %d\n", previousMax);
+                // printf("Maximum: %d\n", max);
+                // -----------------------------
+                previousMax = max;
+            } else{
+                if(optimizedCol >= previousMax){table[i][j] = optimizedCol;}
+                else{table[i][j] = previousMax;}
             }
         }
         for(m = 0 ; m <= sack -> capacity; ++m){
@@ -156,6 +152,7 @@ void optimalAlgorithm(knapsack *sack){
                     printf("\n");
             }
         }
+        printf("\n");
     }
 }
 
