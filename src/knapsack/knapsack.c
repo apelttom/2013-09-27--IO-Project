@@ -36,9 +36,8 @@ void print_array(int a[], int num_elements){
  
 int randomizer(int min, int max){ 
     int x;
-    srand (time(NULL)+rand()); 
-    x = rand() % max;
-    x += min;
+    srand (time(NULL)+rand());
+    x = (int)(rand() % (min+1) + (max-min));
     return x; 
 }
 
@@ -53,9 +52,11 @@ int max_array(int a[], int num_elements){
 }
  
  /*
- * Expects values in this order: Knapsack min capacity, Knapsack max capacity,
- * Min amount of objects, Max amount of objects, Min cost of each object, 
- * Max cost of each object, Min value of each object, Max value of each object
+ * Expects values in this order:
+ * Knapsack min capacity, Knapsack max capacity,
+ * Min amount of objects, Max amount of objects,
+ * Min cost of each object, Max cost of each object,
+ * Min value of each object, Max value of each object
  * Min copies of each object and Max copies of each object.
  *
  * Returns a generated structure knapsack, which represents a knapsack problem
@@ -184,16 +185,16 @@ optimalAlgorithm(knapsack *sack, table t[50][50]){
     optimalAlgorithm(&sack, t);
 
     // FOR DEBUGGING-------------
-    int m,n;
-    for(m = 0 ; m <= sack.capacity; ++m){
-            printf("%d.row\t", m);
-            for(n = 0 ; n < sack.objectsNum; ++n){
-                printf("%d\t",t[m][n].value);
-                if(n==sack.objectsNum-1)
-                    printf("\n");
-            }
-        }
-    printf("\n");
+    // int m,n;
+    // for(m = 0 ; m <= sack.capacity; ++m){
+    //         printf("%d.row\t", m);
+    //         for(n = 0 ; n < sack.objectsNum; ++n){
+    //             printf("%d\t",t[m][n].value);
+    //             if(n==sack.objectsNum-1)
+    //                 printf("\n");
+    //         }
+    //     }
+    // printf("\n");
     // -------------------------
 
     return 0; 
